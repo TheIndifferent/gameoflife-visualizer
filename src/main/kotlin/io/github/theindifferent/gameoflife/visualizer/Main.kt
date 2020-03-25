@@ -3,6 +3,7 @@ package io.github.theindifferent.gameoflife.visualizer
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
+import javax.swing.SwingUtilities
 
 @SpringBootApplication
 open class Main {
@@ -13,6 +14,9 @@ open class Main {
                 .headless(false)
                 .web(WebApplicationType.SERVLET)
                 .run(*args)
+
+            val gui = context.getBean(VisualizerUI::class.java)
+            SwingUtilities.invokeLater(gui)
         }
     }
 }
