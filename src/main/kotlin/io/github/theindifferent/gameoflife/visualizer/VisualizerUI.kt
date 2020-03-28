@@ -8,10 +8,8 @@ import javax.swing.JPanel
 import javax.swing.border.EtchedBorder
 
 @Component
-class VisualizerUI : Runnable {
+class VisualizerUI(val gameOfLifeComponent: GameOfLifeUI) : Runnable {
     override fun run() {
-        val gameOfLifeComponent = GameOfLifeUI()
-
         val contentPane = JPanel(BorderLayout())
         contentPane.border = BorderFactory
                 .createCompoundBorder(
