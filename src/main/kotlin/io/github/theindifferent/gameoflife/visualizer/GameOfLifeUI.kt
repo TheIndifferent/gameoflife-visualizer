@@ -40,4 +40,16 @@ class GameOfLifeUI(val model: GameOfLifeModel) : JComponent(),
     override fun fireModelUpdate() {
         repaint()
     }
+
+    fun increaseGridSize() {
+        gridSize++
+        repaint()
+    }
+
+    fun decreaseGridSize() {
+        if (gridSize > 1) {
+            gridSize--
+            repaint()
+        }
+    }
 }
