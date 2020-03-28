@@ -27,4 +27,8 @@ class GameOfLifeModel {
         generation.addAll(nextGen)
         fireModelUpdate()
     }
+
+    fun cells() : List<Cell> {
+        return generation
+    }
 }

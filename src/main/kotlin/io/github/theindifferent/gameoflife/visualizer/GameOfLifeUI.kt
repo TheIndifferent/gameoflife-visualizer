@@ -11,6 +11,9 @@ import javax.swing.JComponent
 class GameOfLifeUI(val model: GameOfLifeModel) : JComponent(),
         GameOfLifeModelListener {
 
+    private val backgroundColor: Color = Color(57, 64, 69)
+    private var gridSize: Int = 5
+
     init {
         // idiomatic Swing, add self as listener:
         model.addModelListener(this)
@@ -19,9 +22,19 @@ class GameOfLifeUI(val model: GameOfLifeModel) : JComponent(),
 
     override fun paintComponent(graphicsNullable: Graphics?) {
         val g = graphicsNullable!!
-        val bounds: Rectangle = g.getClipBounds() ?: Rectangle(0, 0, getSize().width, getSize().height)
-        g.setColor(Color.DARK_GRAY)
-        g.fillRect(bounds.x, bounds.y, bounds.width, bounds.height)
+        val clip: Rectangle = g.getClipBounds() ?: Rectangle(0, 0, getSize().width, getSize().height)
+        g.setColor(backgroundColor)
+        g.fillRect(clip.x, clip.y, clip.width, clip.height)
+        g.setColor(Color.WHITE)
+
+        model.cells()
+            .filter { it.x >= clip.x
+                    && it.y >= clip.y
+                    && it.x <= clip.width / gridSize
+                    && it.y <= clip.height / gridSize }
+            .forEach {
+                g.fillRect(it.x * gridSize, it.y * gridSize, gridSize, gridSize)
+            }
     }
 
     override fun fireModelUpdate() {

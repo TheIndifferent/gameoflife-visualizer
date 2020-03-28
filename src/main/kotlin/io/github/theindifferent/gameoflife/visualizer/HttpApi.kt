@@ -16,7 +16,7 @@ import kotlin.system.measureTimeMillis
 @RestController("/")
 class HttpApi(val model: GameOfLifeModel) {
 
-    private val GENERATIONS_PER_SECOND = 10
+    private val GENERATIONS_PER_SECOND = 30
     private val TIME_PER_GENERATION = 1000 / GENERATIONS_PER_SECOND
 
     private val log: Logger = LoggerFactory.getLogger(HttpApi::class.java)
