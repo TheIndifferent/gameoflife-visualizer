@@ -1,32 +1,34 @@
 package io.github.theindifferent.gameoflife.visualizer
 
+import org.junit.jupiter.api.assertThrows
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
-internal class GameOfLifeModelTest {
 
-    private val model: GameOfLifeModel = GameOfLifeModel()
+internal class GenerationParserTest {
+
+    private val parser: GenerationParser = GenerationParser()
 
     @Test
     fun `empty input produces empty output`() {
         assertEquals(
             listOf(),
-            model.parseGeneration(""))
+            parser.parseGeneration(""))
     }
 
     @Test
     fun `single element input produces single cell`() {
         assertEquals(
             listOf(Cell(11, 12)),
-            model.parseGeneration("11:12"))
+            parser.parseGeneration("11:12"))
     }
 
     @Test
     fun `single negative element input produces single cell`() {
         assertEquals(
             listOf(Cell(-11, -12)),
-            model.parseGeneration("-11:-12"))
+            parser.parseGeneration("-11:-12"))
     }
 
     @Test
@@ -35,7 +37,7 @@ internal class GameOfLifeModelTest {
         val y = Random.nextInt()
         assertEquals(
             listOf(Cell(x, y)),
-            model.parseGeneration("$x:$y"))
+            parser.parseGeneration("$x:$y"))
     }
 
     @Test
@@ -44,6 +46,20 @@ internal class GameOfLifeModelTest {
         val cell2 = Cell(Random.nextInt(), Random.nextInt())
         assertEquals(
             listOf(cell1, cell2),
-            model.parseGeneration("${cell1.x}:${cell1.y},${cell2.x}:${cell2.y}"))
+            parser.parseGeneration("${cell1.x}:${cell1.y},${cell2.x}:${cell2.y},"))
+    }
+
+    @Test
+    fun `invalid coordinates separator results in exception`() {
+        assertThrows<InvalidGenerationException> {
+            parser.parseGeneration("11;12")
+        }
+    }
+
+    @Test
+    fun `invalid cell separator results in exception`() {
+        assertThrows<InvalidGenerationException> {
+            parser.parseGeneration("11:12.13:14")
+        }
     }
 }
