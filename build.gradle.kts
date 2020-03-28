@@ -20,6 +20,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-logging:2.2.5.RELEASE")
     implementation("org.apache.tomcat.embed:tomcat-embed-core:9.0.31")
 //    implementation("org.springframework.boot:spring-boot-starter-web:2.2.5.RELEASE")
+    testImplementation(kotlin("test"))
+    testImplementation(kotlin("test-junit5"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.6.1")
 }
 
 tasks {
@@ -28,6 +32,12 @@ tasks {
     }
     compileTestKotlin {
         kotlinOptions.jvmTarget = "11"
+    }
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
     }
 }
 

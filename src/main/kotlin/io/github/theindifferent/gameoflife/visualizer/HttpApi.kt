@@ -11,13 +11,20 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController("/")
-class HttpApi {
+class HttpApi(val model: GameOfLifeModel) {
 
     private val log: Logger = LoggerFactory.getLogger(HttpApi::class.java)
 
     @PostMapping
-    fun acceptNextGeneration(@RequestBody nextGeneration: String) : ResponseEntity<String> {
+    fun acceptNextGeneration(@RequestBody nextGeneration: String): ResponseEntity<String> {
         log.info("Received generation: {}", nextGeneration)
-        return ResponseEntity(HttpStatus.ACCEPTED)
+        try {
+            model.spawnNextGeneration(nextGeneration)
+            return ResponseEntity(HttpStatus.ACCEPTED)
+        } catch (invalidGen: InvalidGenerationException) {
+            return ResponseEntity(
+                    "Invalid generation",
+                    HttpStatus.BAD_REQUEST)
+        }
     }
 }
