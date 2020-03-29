@@ -1,5 +1,8 @@
 package io.github.theindifferent.gameoflife.visualizer
 
+import org.springframework.stereotype.Component
+
+@Component
 class GenerationParser {
 
     private val generationRegex = Regex("(-?\\d+:-?\\d+,?)*")
