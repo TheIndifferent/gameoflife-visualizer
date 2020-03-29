@@ -21,8 +21,7 @@ class GameOfLifeModel {
         modelListeners.forEach(GameOfLifeModelListener::fireModelUpdate)
     }
 
-    fun spawnNextGeneration(nextGeneration: String) {
-        val nextGen = parser.parseGeneration(nextGeneration)
+    fun updateGeneration(nextGen: List<Cell>) {
         generation.clear()
         generation.addAll(nextGen)
         fireModelUpdate()
