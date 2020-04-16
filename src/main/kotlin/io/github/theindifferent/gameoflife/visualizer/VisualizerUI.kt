@@ -15,10 +15,9 @@ class VisualizerUI(
     val generationTimer: GenerationTimer) : Runnable {
     override fun run() {
         val contentPane = JPanel(BorderLayout())
-        contentPane.border = BorderFactory.createEtchedBorder(EtchedBorder.LOWERED)
         contentPane.add(gameOfLifeComponent, BorderLayout.CENTER)
 
-        val frame = JFrame("Game Of Life")
+        val frame = JFrame("Game Of Life ( press +/- to change size, F/S to go faster/slower )")
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.contentPane = contentPane
 
