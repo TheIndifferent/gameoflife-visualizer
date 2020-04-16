@@ -17,6 +17,8 @@ open class Main {
 
             val gui = context.getBean(VisualizerUI::class.java)
             SwingUtilities.invokeLater(gui)
+            context.getBean(GenerationTimer::class.java)
+                    .startTimer()
         }
     }
 }

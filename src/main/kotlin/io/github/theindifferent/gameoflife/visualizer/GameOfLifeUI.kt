@@ -1,5 +1,7 @@
 package io.github.theindifferent.gameoflife.visualizer
 
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.awt.Color
 import java.awt.Dimension
@@ -10,6 +12,8 @@ import javax.swing.JComponent
 @Component
 class GameOfLifeUI(val model: GameOfLifeModel) : JComponent(),
         GameOfLifeModelListener {
+
+    private val log: Logger = LoggerFactory.getLogger(GameOfLifeUI::class.java)
 
     private val backgroundColor: Color = Color(57, 64, 69)
     private var gridSize: Int = 5

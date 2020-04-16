@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component
 @Component
 class GameOfLifeModel {
 
-    private val parser = GenerationParser()
     private val modelListeners: MutableList<GameOfLifeModelListener> = mutableListOf()
     private val generation: MutableList<Cell> = mutableListOf()
 
