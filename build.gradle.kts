@@ -1,6 +1,7 @@
 plugins {
     application
     kotlin("jvm") version "1.3.70"
+    id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 group = "io.github.theindifferent"
@@ -26,6 +27,16 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.6.1")
 }
 
+tasks.withType<Jar> {
+    manifest {
+        attributes(
+                mapOf(
+                        "Main-Class" to "io.github.theindifferent.gameoflife.visualizer.Main"
+                )
+        )
+    }
+}
+
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = "11"
@@ -43,19 +54,4 @@ tasks {
 
 application {
     mainClassName = "io.github.theindifferent.gameoflife.visualizer.Main"
-}
-
-val fullJar = task("full-jar", type = Jar::class) {
-    baseName = "${project.name}-full"
-    manifest {
-        attributes["Main-Class"] = "io.github.theindifferent.gameoflife.visualizer.Main"
-    }
-    from(configurations.runtimeClasspath.get().map({ if (it.isDirectory) it else zipTree(it) }))
-    with(tasks.jar.get() as CopySpec)
-}
-
-tasks {
-    "build" {
-        dependsOn(fullJar)
-    }
 }
